@@ -44,7 +44,7 @@ A estrutura do projeto é a seguinte:
 │   ├── export_csv.py              # Função para exportar resultados para CSV
 │   ├── html_parsing.py            # Função para parsing de HTML
 ├── .gitignore                     # Arquivos a serem ignorados pelo Git
-├── design_results.csv             # Arquivo CSV com os resultados da busca
+├── search_results.csv             # Arquivo CSV com os resultados da busca
 ├── main.py                        # Script principal para executar o scraping
 └── README.md                      # Este arquivo README
 ```
