@@ -41,7 +41,7 @@ def main():
 
     # Verifica os resultados e exporta
     if results:
-        csv_filename = f"{term.replace(' ', '_')}_results.csv"
+        csv_filename = "search_results.csv"
         export_to_csv(csv_filename, results, fieldnames=list(results[0].keys()))
         print(f"Resultados exportados para {csv_filename}")
     else:
