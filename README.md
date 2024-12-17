@@ -1,64 +1,84 @@
-### README.md
+# API de Scraping de Repositórios de Design
 
-```markdown
-# Academic Publication Scraper API
+Este script permite realizar buscas nos repositórios "Estudos em Design" e "InfoDesign" para recuperar materiais relacionados ao campo do design. O script oferece uma interface simples de linha de comando para selecionar o repositório, definir termos de pesquisa e especificar o número de páginas a serem consultadas. Os resultados da busca são exportados para um arquivo CSV.
 
-A Python-based API for querying and extracting information about academic publications from repositories and journals. This tool is designed to help researchers and developers streamline the process of finding and organizing academic content.
+## Funcionalidades
 
-## Features
-- Scrapes academic repositories for publication details.
-- Retrieves publication titles, authors, publication dates, and URLs.
-- Supports pagination for large queries.
-- Exports results to a CSV file for easy analysis and sharing.
+- **Escolha de Repositório:** Permite escolher entre dois repositórios: "Estudos em Design" e "InfoDesign".
+- **Busca de Termos:** O usuário pode inserir um termo de pesquisa específico, que será utilizado para buscar artigos nos repositórios selecionados.
+- **Paginação de Resultados:** O usuário pode definir o número de páginas a serem consultadas, o que permite ajustar a quantidade de resultados retornados.
+- **Exportação de Resultados:** Os resultados da pesquisa são exportados para um arquivo CSV.
 
-## Requirements
-- Python 3.7 or higher
-- The following Python libraries:
-  - `requests`
-  - `beautifulsoup4`
+## Requisitos
 
-Install the required libraries using:
+- Python 3.x
+- Bibliotecas adicionais:
+  - `requests` (para realizar as requisições HTTP)
+  - `beautifulsoup4` (para fazer scraping de dados HTML)
+  - `csv` (para exportar os resultados em formato CSV)
+
+## Instalação
+
+1. Clone o repositório ou baixe o código.
+2. Instale as dependências necessárias:
+   ```bash
+   pip install requests beautifulsoup4
+   ```
+
+## Como Usar
+
+1. Execute o script no terminal:
+   ```bash
+   python nome_do_script.py
+   ```
+   
+2. O script irá solicitar que você escolha entre dois repositórios:
+   - Digite `1` para "Estudos em Design"
+   - Digite `2` para "InfoDesign"
+   
+3. Insira os termos de pesquisa que deseja buscar nos repositórios.
+
+4. Especifique o número de páginas a serem consultadas para cada repositório.
+
+5. O script realizará a busca e, se encontrar resultados, exportará os dados para um arquivo CSV com o nome baseado no termo de pesquisa.
+
+6. O arquivo CSV será salvo no mesmo diretório onde o script é executado.
+
+## Exemplo de Execução
+
 ```bash
-pip install requests beautifulsoup4
+Selecione o repositório:
+1. Estudos em Design
+2. InfoDesign
+Digite o número correspondente: 1
+Insira os termos de pesquisa: UX Design
+Insira o número de páginas para consulta: 2
+Buscando resultados, por favor aguarde...
+Resultados exportados para UX_Design_results.csv
 ```
 
-## How to Use
-1. Clone this repository:
-   ```bash
-   git clone <repository_url>
-   cd <repository_name>
-   ```
+## Funções
 
-2. Run the script:
-   ```bash
-   python scraper.py
-   ```
+- `EstudosEmDesignScraper`: Scraper específico para o repositório "Estudos em Design". 
+- `InfoDesignScraper`: Scraper específico para o repositório "InfoDesign".
+- `export_to_csv`: Função responsável por exportar os dados obtidos da busca para um arquivo CSV.
 
-3. Enter the search term and the number of pages you want to scrape.
+## Estrutura de Diretórios
 
-4. The results will be saved to a `search_results.csv` file in the same directory.
-
-## Example
-**Input:**  
 ```
-Enter the search term: UX Design  
-Enter the number of pages to scrape: 3  
+.
+├── scrapers/
+│   ├── estudosemdesign_scraper.py
+│   └── infodesign_scraper.py
+├── utils/
+│   └── export_csv.py
+└── nome_do_script.py
 ```
 
-**Output:**  
-A `search_results.csv` file containing:
-| title                     | author          | link                                      | date       |
-|---------------------------|-----------------|-------------------------------------------|------------|
-| UX Research in Practice   | John Doe        | https://repositorio.ufrn.br/123456        | 2023-05-01 |
-| Interaction Design Basics | Jane Smith      | https://repositorio.ufrn.br/789012        | 2022-11-15 |
+## Contribuindo
 
-## Notes
-- The script is configured to scrape the UFRN repository. Adjust the `base_url` variable in the code to target other repositories if needed.
-- Ensure compliance with the repository's terms of service before using this tool.
+Se você quiser contribuir para este projeto, faça um fork, crie sua branch e submeta um pull request com suas alterações. 
 
-## Contributing
-Feel free to fork the repository and submit pull requests for improvements or additional features.
+## Licença
 
-## License
-This project is licensed under the MIT License.
-```
+Este projeto está sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
