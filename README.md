@@ -1,11 +1,11 @@
-# API de Scraping de Repositórios de Design
+# API de Scraping de Periódicos de Design
 
-Este script permite realizar buscas nos repositórios "Estudos em Design" e "InfoDesign" para recuperar materiais relacionados ao campo do design. O script oferece uma interface simples de linha de comando para selecionar o repositório, definir termos de pesquisa e especificar o número de páginas a serem consultadas. Os resultados da busca são exportados para um arquivo CSV.
+Este script permite realizar buscas na base de dados dos periódicos "Estudos em Design" e "InfoDesign" para identificar materiais relacionados ao campo do design. O script oferece uma interface simples de linha de comando para selecionar o repositório, definir termos de pesquisa e especificar o número de páginas a serem consultadas. Os resultados da busca são exportados para um arquivo CSV.
 
 ## Funcionalidades
 
-- **Escolha de Repositório:** Permite escolher entre dois repositórios: "Estudos em Design" e "InfoDesign".
-- **Busca de Termos:** O usuário pode inserir um termo de pesquisa específico, que será utilizado para buscar artigos nos repositórios selecionados.
+- **Escolha de Periódicos:** Permite escolher entre dois periódicos: "Estudos em Design" e "InfoDesign".
+- **Busca de Termos:** O usuário pode inserir um termo de pesquisa específico, que será utilizado para buscar artigos nos periódicos selecionados.
 - **Paginação de Resultados:** O usuário pode definir o número de páginas a serem consultadas, o que permite ajustar a quantidade de resultados retornados.
 - **Exportação de Resultados:** Os resultados da pesquisa são exportados para um arquivo CSV.
 
@@ -34,9 +34,9 @@ A estrutura do projeto é a seguinte:
 ├── scrapers/
 │   ├── __init__.py
 │   ├── base_scraper.py            # Classe base para scrapers
-│   ├── blucher_scraper.py         # Scraper para Blucher
+│   ├── blucher_scraper.py         # Scraper para Blucher  (Coming soon)
 │   ├── estudosemdesign_scraper.py # Scraper para Estudos em Design
-│   ├── humanfactorsindesign_scraper.py # Scraper para Human Factors in Design
+│   ├── humanfactorsindesign_scraper.py # Scraper para Human Factors in Design (Coming soon)
 │   ├── infodesign_scraper.py      # Scraper para InfoDesign
 │   └── template_scraper.py        # Template para novos scrapers
 ├── utils/
@@ -56,13 +56,13 @@ A estrutura do projeto é a seguinte:
    python main.py
    ```
 
-2. O script irá solicitar que você escolha entre dois repositórios:
+2. O script irá solicitar que você escolha entre os períodicos:
    - Digite `1` para "Estudos em Design"
    - Digite `2` para "InfoDesign"
    
-3. Insira os termos de pesquisa que deseja buscar nos repositórios.
+3. Insira os termos de pesquisa que deseja buscar na base de dados.
 
-4. Especifique o número de páginas a serem consultadas para cada repositório.
+4. Especifique o número de páginas a serem consultadas para cada periódico.
 
 5. O script realizará a busca e, se encontrar resultados, exportará os dados para um arquivo CSV.
 
