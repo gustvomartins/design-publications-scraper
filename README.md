@@ -80,8 +80,4 @@ Se você quiser contribuir para este projeto, faça um fork, crie sua branch e s
 
 ## Licença
 
-Este projeto está sob a licença MIT - veja o arquivo LICENSE para mais detalhes.
-
----
-
-Agora você pode copiar e salvar esse conteúdo como um arquivo `.md`. Se precisar de mais alguma alteração ou adição, me avise!
+Este projeto está sob a licença MIT.
