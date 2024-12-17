@@ -21,17 +21,41 @@ Este script permite realizar buscas nos repositórios "Estudos em Design" e "Inf
 
 1. Clone o repositório ou baixe o código.
 2. Instale as dependências necessárias:
-   ```bash
+   ```
    pip install requests beautifulsoup4
    ```
 
+## Estrutura de Diretórios
+
+A estrutura do projeto é a seguinte:
+
+```
+.
+├── scrapers/
+│   ├── __init__.py
+│   ├── base_scraper.py            # Classe base para scrapers
+│   ├── blucher_scraper.py         # Scraper para Blucher
+│   ├── estudosemdesign_scraper.py # Scraper para Estudos em Design
+│   ├── humanfactorsindesign_scraper.py # Scraper para Human Factors in Design
+│   ├── infodesign_scraper.py      # Scraper para InfoDesign
+│   └── template_scraper.py        # Template para novos scrapers
+├── utils/
+│   ├── __init__.py
+│   ├── export_csv.py              # Função para exportar resultados para CSV
+│   ├── html_parsing.py            # Função para parsing de HTML
+├── .gitignore                     # Arquivos a serem ignorados pelo Git
+├── design_results.csv             # Arquivo CSV com os resultados da busca
+├── main.py                        # Script principal para executar o scraping
+└── README.md                      # Este arquivo README
+```
+
 ## Como Usar
 
-1. Execute o script no terminal:
-   ```bash
-   python nome_do_script.py
+1. Execute o script `main.py` no terminal:
    ```
-   
+   python main.py
+   ```
+
 2. O script irá solicitar que você escolha entre dois repositórios:
    - Digite `1` para "Estudos em Design"
    - Digite `2` para "InfoDesign"
@@ -40,40 +64,15 @@ Este script permite realizar buscas nos repositórios "Estudos em Design" e "Inf
 
 4. Especifique o número de páginas a serem consultadas para cada repositório.
 
-5. O script realizará a busca e, se encontrar resultados, exportará os dados para um arquivo CSV com o nome baseado no termo de pesquisa.
+5. O script realizará a busca e, se encontrar resultados, exportará os dados para um arquivo CSV.
 
 6. O arquivo CSV será salvo no mesmo diretório onde o script é executado.
 
-## Exemplo de Execução
-
-```bash
-Selecione o repositório:
-1. Estudos em Design
-2. InfoDesign
-Digite o número correspondente: 1
-Insira os termos de pesquisa: UX Design
-Insira o número de páginas para consulta: 2
-Buscando resultados, por favor aguarde...
-Resultados exportados para UX_Design_results.csv
-```
-
 ## Funções
 
-- `EstudosEmDesignScraper`: Scraper específico para o repositório "Estudos em Design". 
-- `InfoDesignScraper`: Scraper específico para o repositório "InfoDesign".
-- `export_to_csv`: Função responsável por exportar os dados obtidos da busca para um arquivo CSV.
-
-## Estrutura de Diretórios
-
-```
-.
-├── scrapers/
-│   ├── estudosemdesign_scraper.py
-│   └── infodesign_scraper.py
-├── utils/
-│   └── export_csv.py
-└── nome_do_script.py
-```
+- **`EstudosEmDesignScraper`**: Scraper específico para o repositório "Estudos em Design". 
+- **`InfoDesignScraper`**: Scraper específico para o repositório "InfoDesign".
+- **`export_to_csv`**: Função responsável por exportar os dados obtidos da busca para um arquivo CSV.
 
 ## Contribuindo
 
@@ -81,4 +80,8 @@ Se você quiser contribuir para este projeto, faça um fork, crie sua branch e s
 
 ## Licença
 
-Este projeto está sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Este projeto está sob a licença MIT - veja o arquivo LICENSE para mais detalhes.
+
+---
+
+Agora você pode copiar e salvar esse conteúdo como um arquivo `.md`. Se precisar de mais alguma alteração ou adição, me avise!
