@@ -1,11 +1,13 @@
 from scrapers.estudosemdesign_scraper import EstudosEmDesignScraper
 from scrapers.infodesign_scraper import InfoDesignScraper
+from scrapers.repositorioufrn_scraper import RepositorioUfrnScraper
 from utils.export_csv import export_to_csv
 
 def main():
-    print("Selecione o repositório:")
-    print("1. Estudos em Design")
-    print("2. InfoDesign")
+    print("""Selecione o repositório ou periódico: 
+          1. Estudos em Design
+          2. InfoDesign
+          3. Repositório Institucional UFRN""")
     choice = input("Digite o número correspondente: ")
 
     # Inicializa o scraper baseado na escolha do usuário
@@ -13,6 +15,8 @@ def main():
         scraper = EstudosEmDesignScraper(base_url="https://estudosemdesign.emnuvens.com.br/design/search/search")
     elif choice == "2":
         scraper = InfoDesignScraper(base_url="https://www.infodesign.org.br/infodesign/search/index")
+    elif choice == "3":
+        scraper = RepositorioUfrnScraper(base_url="https://repositorio.ufrn.br/simple-search")
     else:
         print("Repositório não encontrado.")
         return
