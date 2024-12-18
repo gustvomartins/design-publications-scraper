@@ -1,6 +1,6 @@
 # API de Scraping de Periódicos de Design
 
-Este script permite realizar buscas na base de dados dos periódicos "Estudos em Design" e "InfoDesign" para identificar materiais relacionados ao campo do design. O script oferece uma interface simples de linha de comando para selecionar o repositório, definir termos de pesquisa e especificar o número de páginas a serem consultadas. Os resultados da busca são exportados para um arquivo CSV.
+Este script permite realizar buscas na base de dados de periódicos e repositórios para identificar materiais relacionados ao campo do design. O script oferece uma interface simples de linha de comando para selecionar o repositório, definir termos de pesquisa e especificar o número de páginas a serem consultadas. Os resultados da busca são exportados para um arquivo CSV.
 
 ## Funcionalidades
 
@@ -34,10 +34,11 @@ A estrutura do projeto é a seguinte:
 ├── scrapers/
 │   ├── __init__.py
 │   ├── base_scraper.py            # Classe base para scrapers
-│   ├── blucher_scraper.py         # Scraper para Blucher  (Coming soon)
+│   ├── blucher_scraper.py         # Scraper para Blucher  (Em breve)
 │   ├── estudosemdesign_scraper.py # Scraper para Estudos em Design
-│   ├── humanfactorsindesign_scraper.py # Scraper para Human Factors in Design (Coming soon)
+│   ├── humanfactorsindesign_scraper.py # Scraper para Human Factors in Design (Em breve)
 │   ├── infodesign_scraper.py      # Scraper para InfoDesign
+|   ├── repostorioufrn_scaper.py   # Scraper para o Repositório Institucional da UFRN 
 │   └── template_scraper.py        # Template para novos scrapers
 ├── utils/
 │   ├── __init__.py
@@ -59,6 +60,7 @@ A estrutura do projeto é a seguinte:
 2. O script irá solicitar que você escolha entre os períodicos:
    - Digite `1` para "Estudos em Design"
    - Digite `2` para "InfoDesign"
+   - Digite `3` para "Repositório Institucional UFRN"
    
 3. Insira os termos de pesquisa que deseja buscar na base de dados.
 
@@ -70,8 +72,9 @@ A estrutura do projeto é a seguinte:
 
 ## Funções
 
-- **`EstudosEmDesignScraper`**: Scraper específico para o repositório "Estudos em Design". 
-- **`InfoDesignScraper`**: Scraper específico para o repositório "InfoDesign".
+- **`EstudosEmDesignScraper`**: Scraper específico para o periódico "Estudos em Design". 
+- **`InfoDesignScraper`**: Scraper específico para o periódico "InfoDesign".
+- **`RepositorioUfrnScraper`**: Scraper específico para o "Repositório Institucional UFRN".
 - **`export_to_csv`**: Função responsável por exportar os dados obtidos da busca para um arquivo CSV.
 
 ## Contribuindo
