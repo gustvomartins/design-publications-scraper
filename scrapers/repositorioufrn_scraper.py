@@ -28,7 +28,12 @@ class RepositorioUfrnScraper(BaseScraper):
                     link = title_tag['href'] if title_tag and "href" in title_tag.attrs else "Sem URL"
                     date = date_tag.get_text() if date_tag else "Data não informada"
 
-                    results.append({'title': title, 'author': author, 'link': link, 'date': date})
+                    results.append({
+                        'title': title, 
+                        'author': author, 
+                        'link': link, 
+                        'date': date
+                        })
 
             else:
                 print(f"Erro ao acessar a página {page + 1}: {response.status_code}")
