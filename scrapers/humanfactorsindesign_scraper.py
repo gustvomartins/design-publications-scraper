@@ -4,8 +4,7 @@ from scrapers.base_scraper import BaseScraper
 
 class HumanFactorsinDesignScraper(BaseScraper):
     def search(self, term, max_pages):
-        return super().search(term, max_pages)
-    
+
         results = []
 
         for page in range(max_pages):
@@ -17,7 +16,7 @@ class HumanFactorsinDesignScraper(BaseScraper):
             response = requests.get(url)
 
             if response.status_code == 200:
-                soup = BeautifulSoup(response.contet, "html.parser")
+                soup = BeautifulSoup(response.content, "html.parser")
 
                 for item in soup.select("ul.search_results > li"):
                     title_tag = item.find("h3", class_="title")

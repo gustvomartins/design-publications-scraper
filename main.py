@@ -1,13 +1,15 @@
 from scrapers.estudosemdesign_scraper import EstudosEmDesignScraper
 from scrapers.infodesign_scraper import InfoDesignScraper
 from scrapers.repositorioufrn_scraper import RepositorioUfrnScraper
+from scrapers.humanfactorsindesign_scraper import HumanFactorsinDesignScraper
 from utils.export_csv import export_to_csv
 
 def main():
     print("""Selecione o repositório ou periódico: 
           1. Estudos em Design
           2. InfoDesign
-          3. Repositório Institucional UFRN""")
+          3. Repositório Institucional UFRN
+          4. Human Factors in Design""")
     choice = input("Digite o número correspondente: ")
 
     # Inicializa o scraper baseado na escolha do usuário
@@ -17,6 +19,8 @@ def main():
         scraper = InfoDesignScraper(base_url="https://www.infodesign.org.br/infodesign/search/index")
     elif choice == "3":
         scraper = RepositorioUfrnScraper(base_url="https://repositorio.ufrn.br/simple-search")
+    elif choice == "4":
+        scraper = HumanFactorsinDesignScraper(base_url="https://www.revistas.udesc.br/index.php/hfd/search/index")
     else:
         print("Repositório não encontrado.")
         return
