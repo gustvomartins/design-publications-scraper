@@ -1,7 +1,4 @@
-from scrapers.estudosemdesign_scraper import EstudosEmDesignScraper
-from scrapers.infodesign_scraper import InfoDesignScraper
-from scrapers.repositorioufrn_scraper import RepositorioUfrnScraper
-from scrapers.humanfactorsindesign_scraper import HumanFactorsinDesignScraper
+from utils.scrapers_factory import ScrapterFactory
 from utils.export_csv import export_to_csv
 
 def main():
@@ -13,16 +10,24 @@ def main():
     choice = input("Digite o número correspondente: ")
 
     # Inicializa o scraper baseado na escolha do usuário
-    if choice == "1":
-        scraper = EstudosEmDesignScraper(base_url="https://estudosemdesign.emnuvens.com.br/design/search/search")
-    elif choice == "2":
-        scraper = InfoDesignScraper(base_url="https://www.infodesign.org.br/infodesign/search/index")
-    elif choice == "3":
-        scraper = RepositorioUfrnScraper(base_url="https://repositorio.ufrn.br/simple-search")
-    elif choice == "4":
-        scraper = HumanFactorsinDesignScraper(base_url="https://www.revistas.udesc.br/index.php/hfd/search/index")
-    else:
+    scraper_mapping = {
+        "1": "estudos_em_design",
+        "2": "infodesign",
+        "3": "repositorio_ufrn",
+        "4": "human_factors_in_design"
+    }
+
+    scraper_name = scraper_mapping.get(choice)
+
+    if not scraper_name:
         print("Repositório não encontrado.")
+        return
+    
+    #Obtém instância do scraper pela fábrica
+    try:
+        scraper = ScrapterFactory.get_scraper(scraper_name)
+    except ValueError as e:
+        print(e)
         return
 
     # Obtém os termos de pesquisa e número de páginas
