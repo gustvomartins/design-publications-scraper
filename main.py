@@ -22,7 +22,7 @@ def main():
         return
 
     # Obtém os termos de pesquisa e número de páginas
-    term = input("Insira os termos de pesquisa: ")
+    term = input("Insira os termos de pesquisa (máximo 10 palavras): ")
     if not term.strip():
         print("Erro: o termo de pesquisa não pode estar vazio.")
         return
