@@ -10,7 +10,7 @@ Este projeto permite realizar buscas em bases de dados de periódicos e reposit�
   - InfoDesign
   - Repositório Institucional UFRN
   - Human Factors in Design
-  - Blucher Proceedings (Em breve)
+  - Arcos Design
 - **Busca Personalizada:** Insira termos de pesquisa específicos para buscar artigos nos periódicos ou repositórios selecionados.
 - **Paginação de Resultados:** Defina o número de páginas a serem consultadas, ajustando a quantidade de resultados retornados.
 - **Exportação de Resultados:** Exporte os resultados da pesquisa para um arquivo CSV no formato apropriado.
@@ -39,8 +39,8 @@ A estrutura do projeto é organizada da seguinte forma:
 .
 ├── scrapers/
 │   ├── __init__.py
+│   ├── arcosdesign_scraper.py     # Scraper para Arcos Design
 │   ├── base_scraper.py            # Classe base para scrapers
-│   ├── blucher_scraper.py         # Scraper para Blucher Proceedings (Em breve)
 │   ├── estudosemdesign_scraper.py # Scraper para Estudos em Design
 │   ├── infodesign_scraper.py      # Scraper para InfoDesign
 │   ├── repositorioufrn_scraper.py # Scraper para Repositório Institucional UFRN
@@ -69,6 +69,7 @@ A estrutura do projeto é organizada da seguinte forma:
    - Digite `2` para "InfoDesign".
    - Digite `3` para "Repositório Institucional UFRN".
    - Digite `4` para "Human Factors in Design".
+   - Digite `5` para "Arcos Design"
 
 3. Insira os termos de pesquisa que deseja buscar na base de dados (máximo de 10 palavras). 
 
@@ -87,7 +88,8 @@ A estrutura do projeto é organizada da seguinte forma:
   - `EstudosEmDesignScraper`: Scraper para o periódico "Estudos em Design".
   - `InfoDesignScraper`: Scraper para o periódico "InfoDesign".
   - `RepositorioUfrnScraper`: Scraper para o "Repositório Institucional UFRN".
-  - `HumanFactorsinDesignScraper`: Scraper para "Human Factors in Design".
+  - `HumanFactorsinDesignScraper`: Scraper para o periódico "Human Factors in Design".
+  - `ArcosDesignScraper`: Scraper para o periódico "Arcos Design"
 - **`export_to_csv`**: Função para exportar os resultados obtidos para um arquivo CSV.
 
 ## Contribuindo
