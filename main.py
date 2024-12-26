@@ -8,7 +8,8 @@ def main():
           3. Repositório Institucional UFRN
           4. Human Factors in Design
           5. Arcos Design
-          6. Design e Tecnologia""")
+          6. Design e Tecnologia
+          7. Tríades em Revista""")
     choice = input("Digite o número correspondente: ")
 
     # Inicializa o scraper baseado na escolha do usuário
@@ -18,7 +19,8 @@ def main():
         "3": "repositorio_ufrn",
         "4": "human_factors_in_design",
         "5": "arcos_design",
-        "6": "design_e_tecnologia"
+        "6": "design_e_tecnologia",
+        "7": "triades"
     }
 
     scraper_name = scraper_mapping.get(choice)

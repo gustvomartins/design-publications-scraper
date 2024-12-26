@@ -4,7 +4,6 @@ from scrapers.base_scraper import BaseScraper
 
 class TemplateRepoScraper(BaseScraper):
     def search(self, term, max_pages=5):
-        return super().search(term, max_pages)
     
         results = []
 
