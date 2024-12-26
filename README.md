@@ -11,6 +11,9 @@ Este projeto permite realizar buscas em bases de dados de periódicos e reposit�
   - Repositório Institucional UFRN
   - Human Factors in Design
   - Arcos Design
+  - Design e Tecnologia
+  - Tríades
+  - Educação Gráfica
 - **Busca Personalizada:** Insira termos de pesquisa específicos para buscar artigos nos periódicos ou repositórios selecionados.
 - **Paginação de Resultados:** Defina o número de páginas a serem consultadas, ajustando a quantidade de resultados retornados.
 - **Exportação de Resultados:** Exporte os resultados da pesquisa para um arquivo CSV no formato apropriado.
@@ -41,11 +44,14 @@ A estrutura do projeto é organizada da seguinte forma:
 │   ├── __init__.py
 │   ├── arcosdesign_scraper.py     # Scraper para Arcos Design
 │   ├── base_scraper.py            # Classe base para scrapers
+│   ├── designetecnologia_scraper.py  #Scraper para Design e Tecnologia
+│   ├── educacaografica_scraper.py  #Scraper para Educação Gráfica
 │   ├── estudosemdesign_scraper.py # Scraper para Estudos em Design
 │   ├── infodesign_scraper.py      # Scraper para InfoDesign
 │   ├── repositorioufrn_scraper.py # Scraper para Repositório Institucional UFRN
 │   ├── humanfactorsindesign_scraper.py # Scraper para Human Factors in Design
 │   └── template_scraper.py        # Template para novos scrapers
+│   ├── triades_scraper.py         # Scraper para Tríades
 ├── utils/
 │   ├── __init__.py
 │   ├── export_csv.py              # Função para exportar resultados para CSV
@@ -70,6 +76,9 @@ A estrutura do projeto é organizada da seguinte forma:
    - Digite `3` para "Repositório Institucional UFRN".
    - Digite `4` para "Human Factors in Design".
    - Digite `5` para "Arcos Design"
+   - Digite `6` para "Design e Tecnologia"
+   - Digite `7` para "Tríades
+   - Digite `8` para "Educação Gráfica"
 
 3. Insira os termos de pesquisa que deseja buscar na base de dados (máximo de 10 palavras). 
 
@@ -90,6 +99,9 @@ A estrutura do projeto é organizada da seguinte forma:
   - `RepositorioUfrnScraper`: Scraper para o "Repositório Institucional UFRN".
   - `HumanFactorsinDesignScraper`: Scraper para o periódico "Human Factors in Design".
   - `ArcosDesignScraper`: Scraper para o periódico "Arcos Design"
+  - `DesigneTecnologiaScraper`: Scraper para o períodico "Design e Tecnologia"
+  - `TriadesScraper`: Scraper para o periódico "Tríades"
+  - `EducacaoGraficaScraper`: Scraper para o periódico "Educação Gráfica"
 - **`export_to_csv`**: Função para exportar os resultados obtidos para um arquivo CSV.
 
 ## Contribuindo
