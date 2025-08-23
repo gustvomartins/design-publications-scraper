@@ -14,13 +14,14 @@ design-publications-scraper/
 │   ├── estudosemdesign_scraper.py
 │   ├── humanfactorsindesign_scraper.py
 │   ├── infodesign_scraper.py
-│   ├── repositorioufrn_scraper.py
+
 │   ├── triades_scraper.py
 │   └── template_scraper.py
 ├── 📁 utils/              # Utilitários e helpers
 │   ├── scrapers_factory.py
 │   ├── export_csv.py
-│   └── html_parsing.py
+│   ├── html_parsing.py
+│   └── deduplication.py   # Sistema de deduplicação
 ├── 📁 configs/            # Arquivos de configuração
 │   └── config.yaml        # Configurações principais
 ├── 📁 data/               # Dados coletados e processados
@@ -31,6 +32,7 @@ design-publications-scraper/
 ├── 📁 docs/               # Documentação adicional
 ├── main.py                 # Ponto de entrada principal
 ├── pipeline.py             # Pipeline de execução dos scrapers
+├── deduplicate.py          # Script standalone de deduplicação
 ├── requirements.txt        # Dependências Python
 └── README.md              # Este arquivo
 ```
@@ -68,11 +70,23 @@ python pipeline.py
 python main.py
 ```
 
+### Deduplicação
+```bash
+# Deduplicação automática (via pipeline)
+python pipeline.py
+
+# Deduplicação manual
+python deduplicate.py
+
+# Criar nova base de dados
+python deduplicate.py --create-base
+```
+
 ## 📊 Repositórios Suportados
 
 - **estudos_em_design**: Estudos em Design
 - **infodesign**: InfoDesign
-- **repositorio_ufrn**: Repositório UFRN
+
 - **human_factors_in_design**: Human Factors in Design
 - **arcos_design**: Arcos Design
 - **design_e_tecnologia**: Design e Tecnologia
@@ -103,9 +117,17 @@ class MeuScraper(BaseScraper):
         pass
 ```
 
-## 📝 Logs
+## 📝 Logs e Deduplicação
 
 Os logs de execução são salvos na pasta `logs/` para facilitar o debug e monitoramento.
+
+### Sistema de Deduplicação
+O projeto inclui um sistema inteligente de deduplicação que:
+- Compara novos resultados com uma base de dados existente
+- Identifica apenas registros realmente novos
+- Atualiza automaticamente a base de dados
+- Gera relatórios de estatísticas
+- Evita duplicatas baseado no campo `link` dos artigos
 
 ## 🧪 Testes
 

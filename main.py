@@ -9,7 +9,6 @@ def streamlit_app():
     repo_options = {
         "Estudos em Design": "estudos_em_design",
         "InfoDesign": "infodesign",
-        "Repositório UFRN": "repositorio_ufrn",
         "Human Factors in Design": "human_factors_in_design",
         "Arcos Design": "arcos_design",
         "Design e Tecnologia": "design_e_tecnologia",
@@ -65,22 +64,20 @@ def main():
         print("""Selecione o repositório ou periódico: 
           1. Estudos em Design
           2. InfoDesign
-          3. Repositório Institucional UFRN
-          4. Human Factors in Design
-          5. Arcos Design
-          6. Design e Tecnologia
-          7. Tríades em Revista
-          8. Educação Gráfica""")
+          3. Human Factors in Design
+          4. Arcos Design
+          5. Design e Tecnologia
+          6. Tríades em Revista
+          7. Educação Gráfica""")
         choice = input("Digite o número correspondente: ")
         scraper_mapping = {
             "1": "estudos_em_design",
             "2": "infodesign",
-            "3": "repositorio_ufrn",
-            "4": "human_factors_in_design",
-            "5": "arcos_design",
-            "6": "design_e_tecnologia",
-            "7": "triades",
-            "8": "educacao_grafica"
+            "3": "human_factors_in_design",
+            "4": "arcos_design",
+            "5": "design_e_tecnologia",
+            "6": "triades",
+            "7": "educacao_grafica"
         }
         scraper_name = scraper_mapping.get(choice)
         if not scraper_name:

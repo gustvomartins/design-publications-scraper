@@ -2,6 +2,7 @@ import time
 import pandas as pd
 import yaml
 from utils.scrapers_factory import ScrapterFactory
+from utils.deduplication import run_deduplication
 
 
 def load_config(path="configs/config.yaml"):
@@ -58,6 +59,16 @@ def run_all_scrapers(config_path="configs/config.yaml"):
 
     if all_results:
         save_results(csv_filename, all_results)
+        
+        # Executa deduplicação após salvar os resultados (se habilitada)
+        if config.get("deduplication", {}).get("enable_auto_dedup", True):
+            print(f"\n🔄 Executando deduplicação...")
+            dedup_config = config.get("deduplication", {})
+            run_deduplication(
+                new_results_path=csv_filename,
+                base_db_path=dedup_config.get("base_database", "data/raw/base_database.csv"),
+                output_path=dedup_config.get("new_records_output", "data/processed/new_records.csv")
+            )
 
 
 if __name__ == "__main__":
