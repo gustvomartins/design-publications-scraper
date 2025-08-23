@@ -1,117 +1,119 @@
-# API de Scraping de Periódicos de Design
+# Design Publications Scraper
 
-Este projeto permite realizar buscas em bases de dados de periódicos e repositórios para identificar materiais relacionados ao campo do design. Ele oferece uma interface simples de linha de comando para selecionar o repositório, definir termos de pesquisa e especificar o número de páginas a serem consultadas. Os resultados da busca são exportados para um arquivo CSV.
+Um sistema de web scraping para coletar publicações acadêmicas relacionadas ao design de diversos repositórios digitais.
 
-## Funcionalidades
-
-- **Fábrica de Scrapers:** Uma abordagem unificada para selecionar e utilizar diferentes scrapers com base no repositório escolhido, permitindo maior extensibilidade e organização.
-- **Escolha de Periódicos:** Suporte para múltiplos periódicos e repositórios, como:
-  - Estudos em Design
-  - InfoDesign
-  - Repositório Institucional UFRN
-  - Human Factors in Design
-  - Arcos Design
-  - Design e Tecnologia
-  - Tríades
-  - Educação Gráfica
-- **Busca Personalizada:** Insira termos de pesquisa específicos para buscar artigos nos periódicos ou repositórios selecionados.
-- **Paginação de Resultados:** Defina o número de páginas a serem consultadas, ajustando a quantidade de resultados retornados.
-- **Exportação de Resultados:** Exporte os resultados da pesquisa para um arquivo CSV no formato apropriado.
-
-## Requisitos
-
-- Python 3.x
-- Bibliotecas adicionais:
-  - `requests` (para realizar requisições HTTP)
-  - `beautifulsoup4` (para scraping de dados HTML)
-  - `csv` (para exportar os resultados em formato CSV)
-
-## Instalação
-
-1. Clone o repositório ou baixe o código.
-2. Instale as dependências necessárias:
-   ```
-   pip install requests beautifulsoup4
-   ```
-
-## Estrutura de Diretórios
-
-A estrutura do projeto é organizada da seguinte forma:
+## 📁 Estrutura do Projeto
 
 ```
-.
-├── scrapers/
-│   ├── __init__.py
-│   ├── arcosdesign_scraper.py     # Scraper para Arcos Design
-│   ├── base_scraper.py            # Classe base para scrapers
-│   ├── designetecnologia_scraper.py  #Scraper para Design e Tecnologia
-│   ├── educacaografica_scraper.py  #Scraper para Educação Gráfica
-│   ├── estudosemdesign_scraper.py # Scraper para Estudos em Design
-│   ├── infodesign_scraper.py      # Scraper para InfoDesign
-│   ├── repositorioufrn_scraper.py # Scraper para Repositório Institucional UFRN
-│   ├── humanfactorsindesign_scraper.py # Scraper para Human Factors in Design
-│   └── template_scraper.py        # Template para novos scrapers
-│   ├── triades_scraper.py         # Scraper para Tríades
-├── utils/
-│   ├── __init__.py
-│   ├── export_csv.py              # Função para exportar resultados para CSV
-│   ├── html_parsing.py            # Função para parsing de HTML
-│   ├── scrapers_factory.py        # Função para unificar seleção de scrapers
-├── .gitignore                     # Arquivos a serem ignorados pelo Git
-├── search_results.csv             # Arquivo CSV com os resultados da busca
-├── main.py                        # Script principal para executar o scraping
-└── README.md                      # Este arquivo README
+design-publications-scraper/
+├── 📁 scrapers/           # Módulos de scraping específicos
+│   ├── base_scraper.py    # Classe base para todos os scrapers
+│   ├── arcosdesign_scraper.py
+│   ├── designetecnologia_scraper.py
+│   ├── educacaografica_scraper.py
+│   ├── estudosemdesign_scraper.py
+│   ├── humanfactorsindesign_scraper.py
+│   ├── infodesign_scraper.py
+│   ├── repositorioufrn_scraper.py
+│   ├── triades_scraper.py
+│   └── template_scraper.py
+├── 📁 utils/              # Utilitários e helpers
+│   ├── scrapers_factory.py
+│   ├── export_csv.py
+│   └── html_parsing.py
+├── 📁 configs/            # Arquivos de configuração
+│   └── config.yaml        # Configurações principais
+├── 📁 data/               # Dados coletados e processados
+│   ├── raw/               # Dados brutos (CSV, arquivos de saída)
+│   └── processed/         # Dados processados e limpos
+├── 📁 logs/               # Logs de execução
+├── 📁 tests/              # Testes unitários e de integração
+├── 📁 docs/               # Documentação adicional
+├── main.py                 # Ponto de entrada principal
+├── pipeline.py             # Pipeline de execução dos scrapers
+├── requirements.txt        # Dependências Python
+└── README.md              # Este arquivo
 ```
 
-## Como Usar
+## 🚀 Instalação
 
-1. Execute o script `main.py` no terminal:
-   ```
-   python main.py
-   ```
+1. Clone o repositório:
+```bash
+git clone <url-do-repositorio>
+cd design-publications-scraper
+```
 
-2. O script solicitará que você escolha um dos repositórios disponíveis:
-   - Digite `1` para "Estudos em Design".
-   - Digite `2` para "InfoDesign".
-   - Digite `3` para "Repositório Institucional UFRN".
-   - Digite `4` para "Human Factors in Design".
-   - Digite `5` para "Arcos Design"
-   - Digite `6` para "Design e Tecnologia"
-   - Digite `7` para "Tríades
-   - Digite `8` para "Educação Gráfica"
+2. Instale as dependências:
+```bash
+pip install -r requirements.txt
+```
 
-3. Insira os termos de pesquisa que deseja buscar na base de dados (máximo de 10 palavras). 
+## ⚙️ Configuração
 
-4. Especifique o número de páginas a serem consultadas para cada periódico.
+Edite o arquivo `configs/config.yaml` para configurar:
+- **terms**: Termos de busca
+- **repos**: Repositórios a serem consultados
+- **max_pages**: Número máximo de páginas por busca
+- **csv_filename**: Nome do arquivo de saída
 
-5. O script realizará a busca e, se encontrar resultados, exportará os dados para um arquivo CSV.
+## 🎯 Uso
 
-6. O arquivo CSV será salvo no mesmo diretório onde o script é executado.
+### Execução via Pipeline
+```bash
+python pipeline.py
+```
 
-## Funções e Componentes
+### Execução via Main
+```bash
+python main.py
+```
 
-- **Fábrica de Scrapers (`ScraperFactory`)**: 
-  - Centraliza a criação dos scrapers e retorna a instância apropriada com base no repositório selecionado.
-  - Suporta adição fácil de novos scrapers no futuro.
-- **Scrapers Específicos**:
-  - `EstudosEmDesignScraper`: Scraper para o periódico "Estudos em Design".
-  - `InfoDesignScraper`: Scraper para o periódico "InfoDesign".
-  - `RepositorioUfrnScraper`: Scraper para o "Repositório Institucional UFRN".
-  - `HumanFactorsinDesignScraper`: Scraper para o periódico "Human Factors in Design".
-  - `ArcosDesignScraper`: Scraper para o periódico "Arcos Design"
-  - `DesigneTecnologiaScraper`: Scraper para o períodico "Design e Tecnologia"
-  - `TriadesScraper`: Scraper para o periódico "Tríades"
-  - `EducacaoGraficaScraper`: Scraper para o periódico "Educação Gráfica"
-- **`export_to_csv`**: Função para exportar os resultados obtidos para um arquivo CSV.
+## 📊 Repositórios Suportados
 
-## Contribuindo
+- **estudos_em_design**: Estudos em Design
+- **infodesign**: InfoDesign
+- **repositorio_ufrn**: Repositório UFRN
+- **human_factors_in_design**: Human Factors in Design
+- **arcos_design**: Arcos Design
+- **design_e_tecnologia**: Design e Tecnologia
+- **triades**: Triades
+- **educacao_grafica**: Educação Gráfica
 
-Contribuições são bem-vindas! Para contribuir:
+## 🔧 Desenvolvimento
 
-1. Faça um fork do repositório.
-2. Crie uma branch para suas alterações.
-3. Submeta um pull request com uma descrição clara do que foi adicionado ou modificado.
+### Adicionando um Novo Scraper
 
-## Licença
+1. Crie um novo arquivo em `scrapers/`
+2. Herde de `base_scraper.py`
+3. Implemente o método `search()`
+4. Adicione o scraper ao `ScrapterFactory`
+5. Configure no `config.yaml`
+
+### Estrutura de um Scraper
+
+```python
+from scrapers.base_scraper import BaseScraper
+
+class MeuScraper(BaseScraper):
+    def __init__(self):
+        super().__init__("https://exemplo.com")
+    
+    def search(self, term, max_pages=5):
+        # Implementar lógica de busca
+        pass
+```
+
+## 📝 Logs
+
+Os logs de execução são salvos na pasta `logs/` para facilitar o debug e monitoramento.
+
+## 🧪 Testes
+
+Execute os testes na pasta `tests/`:
+```bash
+python -m pytest tests/
+```
+
+## 📄 Licença
 
 Este projeto está sob a licença MIT.

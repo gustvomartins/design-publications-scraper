@@ -1,0 +1,25 @@
+terms:
+  - "experiencia"
+  - "usuario"
+  - "interface"
+  - "usabilidade"
+  - "interacao"
+  - "sistema"
+  - "ergonomia"
+  - "digital"
+  - "informacao"
+  - "tecnologia"
+
+max_pages: 5
+
+repos:
+  estudos_em_design: estudos_em_design
+  infodesign: infodesign
+  repositorio_ufrn: repositorio_ufrn
+  human_factors_in_design: human_factors_in_design
+  arcos_design: arcos_design
+  design_e_tecnologia: design_e_tecnologia
+  triades: triades
+  educacao_grafica: educacao_grafica
+
+csv_filename: "data/raw/search_results.csv"
