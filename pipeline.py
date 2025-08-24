@@ -1,11 +1,8 @@
 import time
-import os
 import pandas as pd
 import yaml
 from utils.scrapers_factory import ScrapterFactory
 from utils.deduplication import run_deduplication
-from utils.data_transformer import transform_and_save_results
-from utils.content_filter import filter_and_save_for_curation
 
 
 def load_config(path="configs/config.yaml"):
@@ -19,22 +16,6 @@ def save_results(filename, new_results):
     if df_new.empty:
         return
 
-    # Transforma os dados para o formato da base de dados
-    transformed_filename = filename.replace('.csv', '_transformed.csv')
-    
-    # Salva temporariamente os novos resultados para transformação
-    temp_filename = filename.replace('.csv', '_temp.csv')
-    df_new.to_csv(temp_filename, index=False)
-    
-    transformed_df = transform_and_save_results(
-        search_results_path=temp_filename,
-        output_path=transformed_filename
-    )
-    
-    if transformed_df is None:
-        print("❌ Falha na transformação dos dados")
-        return
-
     try:
         df_old = pd.read_csv(filename)
     except FileNotFoundError:
@@ -43,23 +24,6 @@ def save_results(filename, new_results):
     df = pd.concat([df_old, df_new], ignore_index=True)
     df.to_csv(filename, index=False)
     print(f"📂 Arquivo atualizado: {filename} ({len(df)} linhas no total)")
-    
-    # Salva também os dados transformados
-    if transformed_df is not None:
-        transformed_df.to_csv(transformed_filename, index=False)
-        print(f"🔄 Dados transformados salvos em: {transformed_filename}")
-        
-        # Aplica filtragem para curadoria
-        curation_filename = filename.replace('.csv', '_curation.csv')
-        curation_df = filter_and_save_for_curation(
-            transformed_filename,
-            curation_filename
-        )
-        
-        if curation_df is not None and not curation_df.empty:
-            print(f"🎯 Conteúdo filtrado para curadoria: {len(curation_df)} registros")
-        else:
-            print("⚠️ Nenhum conteúdo relevante encontrado para curadoria")
 
 
 def run_all_scrapers(config_path="configs/config.yaml"):
@@ -100,17 +64,11 @@ def run_all_scrapers(config_path="configs/config.yaml"):
         if config.get("deduplication", {}).get("enable_auto_dedup", True):
             print(f"\n🔄 Executando deduplicação...")
             dedup_config = config.get("deduplication", {})
-            
-            # Usa os dados transformados para deduplicação
-            transformed_filename = csv_filename.replace('.csv', '_transformed.csv')
-            if os.path.exists(transformed_filename):
-                run_deduplication(
-                    new_results_path=transformed_filename,
-                    base_db_path=dedup_config.get("base_database", "data/raw/base_database.csv"),
-                    output_path=dedup_config.get("new_records_output", "data/processed/new_records.csv")
-                )
-            else:
-                print("⚠️ Dados transformados não encontrados para deduplicação")
+            run_deduplication(
+                new_results_path=csv_filename,
+                base_db_path=dedup_config.get("base_database", "data/raw/base_database.csv"),
+                output_path=dedup_config.get("new_records_output", "data/processed/new_records.csv")
+            )
 
 
 if __name__ == "__main__":

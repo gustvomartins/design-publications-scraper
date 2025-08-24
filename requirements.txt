@@ -3,4 +3,3 @@ pandas==2.2.3
 requests==2.32.4
 beautifulsoup4==4.13.4
 lxml==5.1.0
-langdetect==1.0.9
