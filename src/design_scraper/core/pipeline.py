@@ -1,75 +1,40 @@
-import time
-import pandas as pd
-import yaml
-from utils.scrapers_factory import ScrapterFactory
-from utils.deduplication import run_deduplication
+"""
+Pipeline principal para scraping de publicações de design.
+Este módulo fornece uma interface unificada para executar o pipeline automatizado.
+"""
+
+from .automated_pipeline import AutomatedPipeline, run_automated_pipeline
 
 
-def load_config(path="configs/config.yaml"):
-    with open(path, "r", encoding="utf-8") as f:
-        return yaml.safe_load(f)
+class Pipeline:
+    """Classe principal do pipeline de scraping"""
+    
+    def __init__(self, config_path="src/design_scraper/config/config.yaml"):
+        self.config_path = config_path
+        self.automated_pipeline = AutomatedPipeline(config_path)
+    
+    def run(self):
+        """Executa o pipeline completo"""
+        return self.automated_pipeline.run()
+    
+    def get_status(self):
+        """Retorna o status atual do pipeline"""
+        return self.automated_pipeline.get_status()
 
 
-def save_results(filename, new_results):
-    """Concatena novos resultados SEM remover duplicatas."""
-    df_new = pd.DataFrame(new_results)
-    if df_new.empty:
-        return
-
-    try:
-        df_old = pd.read_csv(filename)
-    except FileNotFoundError:
-        df_old = pd.DataFrame()
-
-    df = pd.concat([df_old, df_new], ignore_index=True)
-    df.to_csv(filename, index=False)
-    print(f"📂 Arquivo atualizado: {filename} ({len(df)} linhas no total)")
-
-
-def run_all_scrapers(config_path="configs/config.yaml"):
-    config = load_config(config_path)
-
-    repos = config["repos"]
-    terms = config["terms"]
-    max_pages = config["max_pages"]
-    csv_filename = config["csv_filename"]
-
-    all_results = []
-
-    for repo_name, scraper_key in repos.items():
-        print(f"\n🔍 Rodando scraper: {repo_name}")
-        scraper = ScrapterFactory.get_scraper(scraper_key)
-
-        for term in terms:
-            try:
-                results = scraper.search(term, max_pages)
-                if results:
-                    for r in results:
-                        r["fonte"] = repo_name
-                        r["termo"] = term
-                    all_results.extend(results)
-                    print(f"   ➕ {len(results)} resultados para '{term}'")
-                else:
-                    print(f"   ⚠️ Nenhum resultado para '{term}'")
-            except Exception as e:
-                print(f"   ❌ Erro no scraper {repo_name}: {e}")
-
-        # Pausa para evitar requisições seguidas
-        time.sleep(2)
-
-    if all_results:
-        save_results(csv_filename, all_results)
-        
-        # Executa deduplicação após salvar os resultados (se habilitada)
-        if config.get("deduplication", {}).get("enable_auto_dedup", True):
-            print(f"\n🔄 Executando deduplicação...")
-            dedup_config = config.get("deduplication", {})
-            run_deduplication(
-                new_results_path=csv_filename,
-                base_db_path=dedup_config.get("base_database", "data/raw/base_database.csv"),
-                output_path=dedup_config.get("new_records_output", "data/processed/new_records.csv")
-            )
+# Funções de conveniência para compatibilidade
+def run_all_scrapers(config_path="src/design_scraper/config/config.yaml"):
+    """Função de conveniência para executar o pipeline completo"""
+    return run_automated_pipeline(config_path)
 
 
 if __name__ == "__main__":
-    run_all_scrapers()
+    # Execução direta do pipeline
+    pipeline = Pipeline()
+    result = pipeline.run()
+    
+    if result:
+        print(f"\n✅ Pipeline executado com sucesso!")
+        print(f"📊 Resumo: {result}")
+    else:
+        print(f"\n❌ Pipeline falhou!")

@@ -21,7 +21,10 @@ repos:
   triades: triades
   educacao_grafica: educacao_grafica
 
-csv_filename: "data/raw/search_results.csv"
+# File paths for the updated pipeline
+raw_results_filename: "data/raw/search_results.csv"
+filtered_results_filename: "data/processed/filtered_results.csv"
+new_records_filename: "data/processed/new_records.csv"
 
 deduplication:
   base_database: "data/raw/base_database.csv"

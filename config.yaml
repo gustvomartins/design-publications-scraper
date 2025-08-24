@@ -1,0 +1,46 @@
+# Configuração principal do Design Publications Scraper
+# Este arquivo controla o pipeline automatizado
+
+# Repositórios disponíveis para scraping
+repos:
+  "Estudos em Design": "estudos_em_design"
+  "InfoDesign": "infodesign"
+  "Human Factors in Design": "human_factors_in_design"
+  "Arcos Design": "arcos_design"
+  "Design e Tecnologia": "design_e_tecnologia"
+  "Tríades em Revista": "triades"
+  "Educação Gráfica": "educacao_grafica"
+
+# Termos de busca para pesquisa
+terms:
+  - "experiencia"
+  - "usuario"
+  - "interface"
+  - "usabilidade"
+  - "interacao"
+  - "sistema"
+  - "ergonomia"
+  - "digital"
+  - "informacao"
+  - "tecnologia"
+
+# Configurações de execução
+max_pages: 10
+delay_between_requests: 2  # segundos
+
+# Arquivos de saída
+raw_results_filename: "data/raw/search_results.csv"
+filtered_results_filename: "data/processed/filtered_results.csv"
+new_records_filename: "data/processed/new_records.csv"
+
+# Configurações de deduplicação
+deduplication:
+  base_database: "data/raw/base_database.csv"
+  output_path: "data/processed/new_records.csv"
+  duplicate_check_field: "link"
+
+# Configurações de filtros
+filters:
+  language_detection: true
+  keyword_filtering: true
+  max_keywords: 10

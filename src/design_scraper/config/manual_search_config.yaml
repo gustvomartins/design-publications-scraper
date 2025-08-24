@@ -1,0 +1,31 @@
+# Configuração para busca manual via interface Streamlit
+manual_search:
+  # Configurações padrão para busca manual
+  default_max_pages: 10
+  default_apply_filters: true
+  default_run_dedup: true
+  
+  # Limites de segurança
+  max_pages_limit: 50
+  max_results_display: 100
+  
+  # Configurações de interface
+  page_title: "Design Publications Scraper"
+  page_icon: "🔍"
+  layout: "wide"
+  
+  # Opções de download
+  download_formats:
+    - "csv"
+    - "excel"
+  
+  # Configurações de filtros
+  filters:
+    language_detection: true
+    keyword_filtering: true
+    max_keywords: 10
+  
+  # Configurações de deduplicação
+  deduplication:
+    base_database: "data/raw/base_database.csv"
+    output_path: "data/processed/manual_search_results.csv"

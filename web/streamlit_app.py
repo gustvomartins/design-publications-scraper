@@ -1,18 +1,29 @@
+#!/usr/bin/env python3
+"""
+Interface Streamlit standalone para o Design Publications Scraper.
+Este arquivo pode ser executado diretamente com: streamlit run streamlit_app.py
+"""
+
 import streamlit as st
 import pandas as pd
 import io
 import sys
 import os
+import tempfile
 
-# Add the src directory to the Python path for direct execution
-if __name__ == "__main__":
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
+# Add the src directory to the Python path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
+# Import required modules
 try:
     from design_scraper.core.manual_search import ManualSearch
-except ImportError:
-    # Fallback for relative import when run as module
-    from .manual_search import ManualSearch
+    from design_scraper.utils.scrapers_factory import ScrapterFactory
+    from design_scraper.utils.data_transformer import transform_search_results
+    from design_scraper.utils.deduplication import run_deduplication
+except ImportError as e:
+    st.error(f"❌ Erro ao importar módulos: {e}")
+    st.info("💡 Certifique-se de que todos os módulos estão instalados corretamente.")
+    st.stop()
 
 def streamlit_app():
     st.set_page_config(
@@ -23,6 +34,14 @@ def streamlit_app():
     
     st.title("🔍 Scraper de Periódicos de Design")
     st.markdown("---")
+    
+    # Informação sobre a separação de responsabilidades
+    st.info("""
+    **ℹ️ Interface Web - Apenas Scraping**
+    
+    Esta interface traz resultados brutos dos scrapers, sem filtros ou deduplicação.
+    Para processamento completo (filtros + deduplicação), use o pipeline automatizado via CLI.
+    """)
     
     # Initialize manual search
     searcher = ManualSearch()
@@ -61,20 +80,6 @@ def streamlit_app():
             min_value=1, max_value=50, value=10
         )
         
-        # Processing options
-        st.subheader("🔄 Opções de Processamento")
-        apply_filters = st.checkbox(
-            "Aplicar filtros (português + palavras-chave)",
-            value=True,
-            help="Filtra resultados por idioma português e palavras-chave relevantes"
-        )
-        
-        run_dedup = st.checkbox(
-            "Executar deduplicação",
-            value=True,
-            help="Remove registros duplicados baseado no link"
-        )
-        
         # Execute button
         if st.button("🚀 Executar Busca", type="primary", use_container_width=True):
             if not selected_repos:
@@ -84,9 +89,9 @@ def streamlit_app():
                 st.error("❌ O termo de pesquisa não pode estar vazio!")
                 return
             
-            execute_manual_search(searcher, selected_repos, repo_options, term, max_pages, apply_filters, run_dedup)
+            execute_manual_search(searcher, selected_repos, repo_options, term, max_pages)
 
-def execute_manual_search(searcher, selected_repos, repo_options, term, max_pages, apply_filters, run_dedup):
+def execute_manual_search(searcher, selected_repos, repo_options, term, max_pages):
     """Executa a busca manual com base nas configurações selecionadas"""
     
     # Progress tracking
@@ -94,13 +99,12 @@ def execute_manual_search(searcher, selected_repos, repo_options, term, max_page
     status_text = st.empty()
     
     try:
-        # Step 1: Execute search
+        # Step 1: Execute search (apenas scraping, sem filtros ou deduplicação)
         status_text.text("🔍 Executando busca...")
         progress_bar.progress(0.3)
         
-        results = searcher.search_publications(
-            selected_repos, repo_options, term, max_pages, 
-            apply_filters, run_dedup
+        results = searcher.search_publications_raw(
+            selected_repos, repo_options, term, max_pages
         )
         
         progress_bar.progress(0.8)
@@ -132,25 +136,13 @@ def display_results(searcher, results):
     summary = searcher.get_search_summary(results)
     
     # Summary statistics
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2 = st.columns(2)
     
     with col1:
         st.metric("Total Scraped", summary['total_scraped'])
     
     with col2:
         st.metric("Resultados Finais", summary['final_results'])
-    
-    with col3:
-        if summary['filters_applied']:
-            st.metric("Filtros", "Aplicados")
-        else:
-            st.metric("Filtros", "Não aplicados")
-    
-    with col4:
-        if summary['dedup_applied']:
-            st.metric("Deduplicação", "Aplicada")
-        else:
-            st.metric("Deduplicação", "Não aplicada")
     
     # Repository statistics
     if summary['scraping_stats']:

@@ -1,11 +1,11 @@
-from scrapers.estudosemdesign_scraper import EstudosEmDesignScraper
-from scrapers.infodesign_scraper import InfoDesignScraper
+from ..scrapers.estudosemdesign_scraper import EstudosEmDesignScraper
+from ..scrapers.infodesign_scraper import InfoDesignScraper
 
-from scrapers.humanfactorsindesign_scraper import HumanFactorsinDesignScraper
-from scrapers.arcosdesign_scraper import ArcosDesignScraper
-from scrapers.designetecnologia_scraper import DesigneTecnologiaScraper
-from scrapers.triades_scraper import TriadesScraper
-from scrapers.educacaografica_scraper import EducacaoGraficaScraper
+from ..scrapers.humanfactorsindesign_scraper import HumanFactorsinDesignScraper
+from ..scrapers.arcosdesign_scraper import ArcosDesignScraper
+from ..scrapers.designetecnologia_scraper import DesigneTecnologiaScraper
+from ..scrapers.triades_scraper import TriadesScraper
+from ..scrapers.educacaografica_scraper import EducacaoGraficaScraper
 
 class ScrapterFactory:
     @staticmethod

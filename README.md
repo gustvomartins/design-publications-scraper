@@ -1,158 +1,194 @@
-# Design Publications Scraper
+# 🔍 Design Publications Scraper
 
-Um sistema de web scraping para coletar publicações acadêmicas relacionadas ao design de diversos repositórios digitais.
+Sistema inteligente para coleta automatizada de publicações acadêmicas de Design, UX e Tecnologia de múltiplas bases de dados científicas brasileiras.
 
-## 📁 Estrutura do Projeto
+## 🏗️ Estrutura do Projeto
 
 ```
 design-publications-scraper/
-├── 📁 src/                    # Código fonte organizado
-│   └── 📁 design_scraper/    # Pacote principal
-│       ├── 📁 core/          # Lógica principal da aplicação
-│       │   ├── main.py       # Ponto de entrada principal
-│       │   └── pipeline.py   # Pipeline de execução
-│       ├── 📁 scrapers/      # Módulos de scraping específicos
-│       │   ├── base_scraper.py
-│       │   ├── arcosdesign_scraper.py
-│       │   ├── designetecnologia_scraper.py
-│       │   ├── educacaografica_scraper.py
-│       │   ├── estudosemdesign_scraper.py
-│       │   ├── humanfactorsindesign_scraper.py
-│       │   ├── infodesign_scraper.py
-│       │   ├── triades_scraper.py
-│       │   └── template_scraper.py
-│       ├── 📁 utils/         # Utilitários e helpers
-│       │   ├── scrapers_factory.py
-│       │   ├── export_csv.py
-│       │   ├── html_parsing.py
-│       │   └── deduplication.py
-│       ├── 📁 processors/    # Processamento de dados
-│       │   └── deduplicate.py
-│       └── 📁 config/        # Arquivos de configuração
-│           └── config.yaml
-├── 📁 data/                  # Dados coletados e processados
-│   ├── raw/                  # Dados brutos
-│   └── processed/            # Dados processados
-├── 📁 tests/                 # Testes unitários
-├── 📁 docs/                  # Documentação
-├── 📁 examples/              # Exemplos de uso
-├── 📁 scripts/               # Scripts utilitários
-├── 📁 logs/                  # Logs de execução
-├── run.py                    # Ponto de entrada simplificado
-├── setup.py                  # Configuração do pacote
-├── requirements.txt          # Dependências Python
-└── README.md                 # Este arquivo
+├── 📁 src/design_scraper/          # Core do sistema
+│   ├── 📁 core/                    # Lógica principal
+│   ├── 📁 config/                  # Configurações
+│   ├── 📁 scrapers/                # Módulos de scraping
+│   └── 📁 utils/                   # Utilitários
+├── 📁 cli/                         # Interface de linha de comando
+├── 📁 web/                         # Interface web (Streamlit)
+├── 📁 docs/                        # Documentação
+├── 📁 data/                        # Dados processados
+├── 📁 tests/                       # Testes automatizados
+└── 📁 requirements.txt             # Dependências Python
 ```
 
-## 🚀 Instalação
+## 🚀 Como Usar
 
-1. Clone o repositório:
+### 🤖 **Automação (CLI)**
+Para execução automatizada e em lote:
+
 ```bash
-git clone <url-do-repositorio>
-cd design-publications-scraper
+# Pipeline completo
+python cli/run.py
+
+# Interface CLI interativa
+python cli/run_cli.py
+
+# Teste do sistema de filtros
+python cli/test_filtering.py
 ```
 
-2. Instale as dependências:
+**⚠️ Importante**: Execute sempre a partir do diretório raiz do projeto para que os imports funcionem corretamente.
+
+### 🌐 **Interface Manual (Web)**
+Para busca personalizada e exploração:
+
 ```bash
-pip install -r requirements.txt
+# Interface Streamlit
+streamlit run web/streamlit_app.py
+
+# Ou usando o script de entrada
+python web/run_streamlit.py
 ```
+
+**⚠️ Importante**: Execute sempre a partir do diretório raiz do projeto para que os imports funcionem corretamente.
+
+**📊 Funcionalidade**: A interface web traz apenas resultados brutos dos scrapers, sem filtros ou deduplicação.
+
+## 📋 Funcionalidades
+
+### 🎯 **Sistema de Filtros Inteligente (Pipeline Automatizado)**
+- **Detecção de idioma**: Apenas títulos em português
+- **Palavras-chave**: 50+ termos relacionados a UX/Design
+- **Transformação**: Estrutura compatível com base de dados
+
+**⚠️ Nota**: Os filtros são aplicados apenas no pipeline automatizado (CLI), não na interface web.
+
+### 🔍 **Deduplicação Automática (Pipeline Automatizado)**
+- **Baseado em links**: Identificação única de publicações
+- **Não sobrescreve**: Novos registros salvos separadamente
+- **Revisão manual**: Controle total sobre atualizações
+
+**⚠️ Nota**: A deduplicação é executada apenas no pipeline automatizado (CLI), não na interface web.
+
+### 📊 **Repositórios Suportados**
+- Estudos em Design
+- InfoDesign
+- Human Factors in Design
+- Arcos Design
+- Design e Tecnologia
+- Tríades em Revista
+- Educação Gráfica
 
 ## ⚙️ Configuração
 
-Edite o arquivo `configs/config.yaml` para configurar:
-- **terms**: Termos de busca
-- **repos**: Repositórios a serem consultados
-- **max_pages**: Número máximo de páginas por busca
-- **csv_filename**: Nome do arquivo de saída
+### **Pipeline Automatizado**
+Edite `src/design_scraper/config/config.yaml`:
 
-## 🎯 Uso
+```yaml
+repos:
+  "Estudos em Design": "estudos_em_design"
+  "InfoDesign": "infodesign"
 
-### Execução Simplificada (Recomendado)
+terms:
+  - "experiencia"
+  - "usuario"
+  - "interface"
+
+max_pages: 10
+```
+
+### **Interface Manual**
+Configurações em `src/design_scraper/config/manual_search_config.yaml`
+
+## 📁 Arquivos de Saída
+
+```
+data/
+├── 📁 raw/
+│   ├── base_database.csv          # Base principal
+│   └── search_results.csv         # Resultados brutos
+└── 📁 processed/
+    ├── filtered_results.csv       # Após filtros
+    └── new_records.csv           # Novos registros únicos
+```
+
+## 🛠️ Instalação
+
 ```bash
-python run.py
+# Clone o repositório
+git clone <url-do-repositorio>
+cd design-publications-scraper
+
+# Instale as dependências
+pip install -r requirements.txt
+
+# Para exportação Excel (opcional)
+pip install openpyxl
 ```
-
-### Execução via Pipeline
-```bash
-python src/design_scraper/core/pipeline.py
-```
-
-### Execução via Main
-```bash
-python src/design_scraper/core/main.py
-```
-
-### Instalação como Pacote
-```bash
-pip install -e .
-design-scraper
-```
-
-### Deduplicação
-```bash
-# Deduplicação automática (via pipeline)
-python run.py
-
-# Deduplicação manual
-python src/design_scraper/processors/deduplicate.py
-
-# Criar nova base de dados
-python src/design_scraper/processors/deduplicate.py --create-base
-```
-
-## 📊 Repositórios Suportados
-
-- **estudos_em_design**: Estudos em Design
-- **infodesign**: InfoDesign
-- **human_factors_in_design**: Human Factors in Design
-- **arcos_design**: Arcos Design
-- **design_e_tecnologia**: Design e Tecnologia
-- **triades**: Triades
-- **educacao_grafica**: Educação Gráfica
-
-## 🔧 Desenvolvimento
-
-### Adicionando um Novo Scraper
-
-1. Crie um novo arquivo em `src/design_scraper/scrapers/`
-2. Herde de `base_scraper.py`
-3. Implemente o método `search()`
-4. Adicione o scraper ao `ScrapterFactory`
-5. Configure no `config.yaml`
-
-### Estrutura de um Scraper
-
-```python
-from design_scraper.scrapers.base_scraper import BaseScraper
-
-class MeuScraper(BaseScraper):
-    def __init__(self):
-        super().__init__("https://exemplo.com")
-    
-    def search(self, term, max_pages=5):
-        # Implementar lógica de busca
-        pass
-```
-
-## 📝 Logs e Deduplicação
-
-Os logs de execução são salvos na pasta `logs/` para facilitar o debug e monitoramento.
-
-### Sistema de Deduplicação
-O projeto inclui um sistema inteligente de deduplicação que:
-- Compara novos resultados com uma base de dados existente
-- Identifica apenas registros realmente novos
-- Atualiza automaticamente a base de dados
-- Gera relatórios de estatísticas
-- Evita duplicatas baseado no campo `link` dos artigos
 
 ## 🧪 Testes
 
-Execute os testes na pasta `tests/`:
 ```bash
-python -m pytest tests/
+# Teste do sistema de filtros
+python cli/test_filtering.py
+
+# Teste do pipeline automatizado
+python cli/run_cli.py
+
+# Teste da interface web
+streamlit run web/streamlit_app.py
 ```
+
+## 📚 Documentação
+
+- **`docs/ESTRUTURA_PROJETO.md`**: Documentação completa da estrutura
+- **`docs/SEPARACAO_RESPONSABILIDADES.md`**: Separação entre CLI e Web
+- **`docs/CORRECOES_IMPORTS.md`**: Correções técnicas realizadas
+- **`src/design_scraper/`**: Código fonte com documentação inline
+
+## 🔧 Desenvolvimento
+
+### **Estrutura de Módulos**
+- **`core/`**: Lógica principal do sistema
+- **`scrapers/`**: Implementações específicas de cada repositório
+- **`utils/`**: Funções utilitárias compartilhadas
+- **`config/`**: Arquivos de configuração
+
+### **Extensibilidade**
+- Adicione novos scrapers em `src/design_scraper/scrapers/`
+- Configure novos repositórios em `config.yaml`
+- Personalize filtros em `utils/data_transformer.py`
+
+## 🔧 Troubleshooting
+
+### **Erro: "No module named 'design_scraper'"**
+**Causa**: Imports não conseguem encontrar os módulos
+**Solução**: Execute sempre a partir do diretório raiz do projeto
+
+```bash
+# ✅ CORRETO: Execute da raiz
+cd design-publications-scraper
+python cli/run.py
+
+# ❌ INCORRETO: Execute de dentro de cli/
+cd cli
+python run.py  # Isso vai falhar
+```
+
+### **Erro: "ModuleNotFoundError"**
+**Causa**: Python não consegue resolver os imports relativos
+**Solução**: Todos os scripts já estão configurados com o caminho correto
+
+## 📞 Suporte
+
+Para problemas ou dúvidas:
+1. Verifique os logs de execução
+2. Execute os testes de validação
+3. Consulte a documentação em `docs/`
+4. Verifique as configurações YAML
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT.
+Este projeto está sob licença MIT. Veja o arquivo LICENSE para detalhes.
+
+---
+
+**🎯 Sistema completo para coleta inteligente de publicações acadêmicas de Design!**

@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-from scrapers.base_scraper import BaseScraper
+from .base_scraper import BaseScraper
 
 class EstudosEmDesignScraper(BaseScraper):
     def search(self, term, max_pages=5):
