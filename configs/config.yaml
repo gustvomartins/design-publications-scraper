@@ -23,6 +23,14 @@ repos:
 
 csv_filename: "data/raw/search_results.csv"
 
+data_processing:
+  transformed_results: "data/processed/transformed_results.csv"
+  enable_auto_transform: true
+
+curation:
+  curation_candidates: "data/processed/curation_candidates.csv"
+  enable_auto_filtering: true
+
 deduplication:
   base_database: "data/raw/base_database.csv"
   new_records_output: "data/processed/new_records.csv"
